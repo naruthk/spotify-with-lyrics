@@ -1,0 +1,57 @@
+.PlayerComponent {
+  .player_content {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-evenly;
+  }
+  .device_information {
+    &.--top-label {
+      font-size: calc(5px + 1vmin);
+      margin-bottom: 10px;
+    }
+    &.--bottom-label {
+      font-weight: bold;
+      color: lightgray;
+      font-size: calc(10px + 1vmin);
+    }
+  }
+  .album_image {
+    max-width: 400px;
+    -webkit-box-shadow: 3px -3px 44px 0px rgba(38,38,38,1);
+    -moz-box-shadow: 3px -3px 44px 0px rgba(38,38,38,1);
+    box-shadow: 3px -3px 44px 0px rgba(38,38,38,1);
+  }
+  .song_information {
+    &.--name {
+      color: white;
+      font-weight: bold;
+      font-size: calc(12px + 2vmin);
+      margin-bottom: 10px;
+    }
+    &.--artist {
+      font-size: calc(8px + 1vmin);
+    }
+  }
+  .progress_information {
+    margin: 0 30px;
+
+    .progress_bar {
+      display: flex;
+      height: 20px;
+
+      &.--wrapper {
+        background-color: #1a1e26;
+      }
+      &.--current_progress_indicator {
+        background-color: white;
+      }
+    }
+    
+    .time_indicator {
+      font-size: calc(5px + 1vmin);
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

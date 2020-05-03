@@ -1,0 +1,17 @@
+.ProfileComponent {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  .user_info {
+    background-color: #1A1E26;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: calc(5px + 1vmin);
+
+    &.--display_name {
+      color: white;
+      font-weight: bold;
+    }
+  }
+}

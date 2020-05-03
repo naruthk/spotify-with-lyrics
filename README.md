@@ -2,9 +2,9 @@
 
 Show currently playing song and its lyric
 
-![Login Screen](LoginScreen.png "Login Screen")
+<img src="LoginScreen.png" alt="Login Screen" width="550" />
 
-![Player Screen](PlayerScreen.png "Player Screen")
+<img src="PlayerScreen.png" alt="Player Screen" width="550" />
 
 ## Installation
 

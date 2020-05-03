@@ -1,11 +1,17 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { getCurrentPlayback } from "../../apis/player";
 import { getHashParams } from "../../utils/strings";
+import { millisToMinutesAndSeconds } from "../../utils/time";
 import { AuthContext } from "../../context/AuthContext";
+import Error from "../Error/Error";
+
 import "./Player.scss";
 
-function Player(props) {
+function Player() {
   const { user } = useContext(AuthContext);
+
+  const params = getHashParams();
+  const { access_token: accessToken } = params;
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -23,7 +29,7 @@ function Player(props) {
     });
 
     if (!response) {
-      setShowError(false);
+      setShowError(true);
       return;
     }
   
@@ -43,22 +49,26 @@ function Player(props) {
   }
 
   useEffect(() => {
-    const params = getHashParams();
-    const { access_token: accessToken } = params;
-
     getTrackingInfo(accessToken);
-  }, []);
+  }, [currentProgress]);
 
-//   useEffect(() => {
-//     const timer = setInterval(() => {
-//       if (currentProgress >= songInfo && songInfo.duration) window.location.reload();
-//       setCurrentProgress(currentProgress + 1);
-//     }, 1000);
-//     return () => clearInterval(timer);
-//   });
+  useEffect(() => {
+    if (!isPlaying) return;
+  
+    let interval = null;
+    if (currentProgress >= songInfo.duration) {
+      clearInterval(interval);
+      getTrackingInfo(accessToken);
+    }
+    interval = setInterval(() => {
+      setCurrentProgress(currentProgress => currentProgress + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isPlaying, currentProgress]);
 
   const renderPlayer = () => {
-    if (!isPlaying) return null;
+    if (!isPlaying) return setShowError(true);
 
     return (
       <section className="player_content">
@@ -87,26 +97,18 @@ function Player(props) {
               style={{ width: `${100 - ((currentProgress / songInfo.duration) * 100)}%` }}></span>
           </div>
           <div className="time_indicator">
-            <span className="time_indicator --current">{currentProgress}</span>
-            <span className="time_indicator --remaining">{songInfo.duration}</span>
+            <span className="time_indicator --current">{millisToMinutesAndSeconds(currentProgress)}</span>
+            <span className="time_indicator --remaining">{millisToMinutesAndSeconds(songInfo.duration)}</span>
           </div>
         </section>
       </section>
     );
   };
 
-  const renderError = () => (
-    <header className="App-header">
-      <h1>Oops!</h1>
-      <p>No song is being played. Please go to your device and play a song.</p>
-    </header>
-  );
-
   return (
     <div className="PlayerComponent">
-      {renderPlayer()}
-      {/* {isPlaying & renderPlayer()}
-      {showError & renderError()} */}
+      {isPlaying && renderPlayer()}
+      {showError && <Error />}
     </div>
   );
 }

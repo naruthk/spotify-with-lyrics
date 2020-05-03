@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import Login from "./components/Login";
+import Login from "./components/Login/Login";
 import Player from "./components/Player/Player";
 import Profile from "./components/Profile/Profile";
 

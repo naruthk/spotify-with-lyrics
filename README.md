@@ -2,6 +2,10 @@
 
 Show currently playing song and its lyric
 
+![Login Screen](LoginScreen.png "Login Screen")
+
+![Player Screen](PlayerScreen.png "Player Screen")
+
 ## Installation
 
 To be updated

@@ -1,0 +1,68 @@
+.LyricsComponent {
+  .LyricsToolbar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+  
+    .lyrics_toolbar_options {
+      background-color: #1A1E26;
+      padding: 5px 10px;
+      border-radius: 10px;
+      font-size: calc(5px + 1vmin);
+  
+      &.--show-lyrics-button {
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .LyricsModal {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &__container {
+      display: flex;
+      position: relative;
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+    }
+  
+    &__dim-layer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: #1a1e26;
+    }
+  
+    &__content {
+      position: relative;
+      z-index: 10;
+      font-size: calc(10px + 1vmin);
+      white-space: pre-wrap;
+      color: white;
+      width: calc(100% - 40px);
+      max-width: 400px;
+      height: calc(100vh - 80px);
+      padding: 20px;
+      max-height: 700px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+  }
+}

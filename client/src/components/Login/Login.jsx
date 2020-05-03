@@ -25,7 +25,7 @@ function Login() {
             <a
               href="https://unsplash.com/@yannispap"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >Yannis Papanastasopoulos</a></span>
           <br />
           <span className="artwork_credit --service">Unsplash</span>

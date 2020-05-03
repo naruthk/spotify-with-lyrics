@@ -52,7 +52,7 @@ function Player() {
 
   useEffect(() => {
     getTrackingInfo(accessToken);
-  }, [currentProgress]);
+  }, []);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -67,7 +67,7 @@ function Player() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [isPlaying, currentProgress]);
+  }, [isPlaying, currentProgress, accessToken]);
 
   const renderPlayer = () => {
     if (!isPlaying) return setShowError(true);

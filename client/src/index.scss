@@ -1,3 +1,5 @@
+@import "./assets//design/variables.scss";
+
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +13,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #282c34;
-  font-size: calc(10px + 2vmin);
-  color: gray;
+  background-color: $background-default;
+  font-size: $font-size-normal;
+  color: $color-gray;
 }

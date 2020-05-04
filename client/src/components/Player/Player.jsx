@@ -1,117 +1,75 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { getCurrentPlayback } from "../../apis/player";
-import { getHashParams } from "../../utils/strings";
+import React, { useEffect, useState } from 'react';
 import { millisToMinutesAndSeconds } from "../../utils/time";
-import { AuthContext } from "../../context/AuthContext";
-
-import Lyrics from "../Lyrics/Lyrics";
-import Error from "../Error/Error";
 
 import "./Player.scss";
 
-function Player() {
-  const { user } = useContext(AuthContext);
+function Player({ isPlaying, activeSongInfo, updateSong }) {
+  const { device, song, album, artists} = activeSongInfo;
 
-  const params = getHashParams();
-  const { access_token: accessToken } = params;
-
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [showError, setShowError] = useState(false);
-
-  const [songInfo, setSongInfo] = useState(null);
-  const [artistInfo, setArtistInfo] = useState(null);
-  const [albumInfo, setAlbumInfo] = useState(null);
-  const [deviceInfo, setDeviceInfo] = useState(null);
-  const [currentProgress, setCurrentProgress] = useState(0);
-
-  const getTrackingInfo = async (accessToken) => {
-    const response = await getCurrentPlayback({
-      accessToken: accessToken,
-      market: user && user.country
-    });
-
-    if (!response) {
-      setShowError(true);
-      return;
-    }
+  const [timeElapsed, setTimeElapsed] = useState(activeSongInfo.timeElapsed);
   
-    const { device, artists, album } = response;
-
-    setDeviceInfo(device);
-    setArtistInfo(artists);
-    setAlbumInfo(album);
-    setSongInfo({
-      id: response.song_id,
-      name: response.song_name,
-      duration: response.duration
-    });
-    setCurrentProgress(response.progress);
-
-    setIsPlaying(true);
-  }
-
-  useEffect(() => {
-    getTrackingInfo(accessToken);
-  }, []);
-
   useEffect(() => {
     if (!isPlaying) return;
-  
+    
     let interval = null;
-    if (currentProgress >= songInfo.duration) {
+
+    if (timeElapsed >= song.duration) {
       clearInterval(interval);
-      getTrackingInfo(accessToken);
+      updateSong();
     }
+
     interval = setInterval(() => {
-      setCurrentProgress(currentProgress => currentProgress + 1);
+      setTimeElapsed(timeElapsed => timeElapsed + 1);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [isPlaying, currentProgress, accessToken]);
+  }, [timeElapsed, isPlaying, song.duration, updateSong]);
 
-  const renderPlayer = () => {
-    if (!isPlaying) return setShowError(true);
-
-    return (
+  return (
+    <div className="PlayerComponent">
       <section className="player_content">
+
+        {/* Device Information */}
         <section className="device_information">
           <p className="device_information --top-label">Currently playing on</p>
-          <p className="device_information --bottom-label">{deviceInfo && deviceInfo.name}</p>
+          <p className="device_information --bottom-label">{device.name}</p>
+          <p>Removed this => {timeElapsed}</p>
         </section>
-        <section className="album_information">
-          <img
-            className="album_image"
-            src={albumInfo.images[0]}
-            alt={songInfo.name}
-          />
-        </section>
+
+        {/* Album Artwork */}
+        {album.images && (
+          <section className="album_information">
+            <img
+              className="album_image"
+              src={album.images[0]}
+              alt={song.name}
+            />
+          </section>
+        )}
+
+        {/* Song Information */}
         <section className="song_information">
-          <p className="song_information --name">{songInfo.name}</p>
-          <p className="song_information --artist">{artistInfo.join(", ")}</p>
+          <p className="song_information --name">{song.name}</p>
+          <p className="song_information --artist">{artists.join(", ")}</p>
         </section>
+
+        {/* Progress Indicator */}
         <section className="progress_information">
           <div className="progress_bar">
             <span
               className="progress_bar --current_progress_indicator"
-              style={{ width: `${(currentProgress / songInfo.duration) * 100}%` }}></span>
+              style={{ width: `${(timeElapsed / song.duration) * 100}%` }}></span>
             <span
               className="progress_bar --wrapper"
-              style={{ width: `${100 - ((currentProgress / songInfo.duration) * 100)}%` }}></span>
+              style={{ width: `${100 - ((timeElapsed / song.duration) * 100)}%` }}></span>
           </div>
           <div className="time_indicator">
-            <span className="time_indicator --current">{millisToMinutesAndSeconds(currentProgress)}</span>
-            <span className="time_indicator --remaining">{millisToMinutesAndSeconds(songInfo.duration)}</span>
+            <span className="time_indicator --current">{millisToMinutesAndSeconds(timeElapsed)}</span>
+            <span className="time_indicator --remaining">{millisToMinutesAndSeconds(song.duration)}</span>
           </div>
         </section>
+  
       </section>
-    );
-  };
-
-  return (
-    <div className="PlayerComponent">
-      {isPlaying && renderPlayer()}
-      {isPlaying && <Lyrics isPlaying={isPlaying} artists={artistInfo} song={songInfo} />}
-      {showError && <Error />}
     </div>
   );
 }

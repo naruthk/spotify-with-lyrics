@@ -1,18 +1,24 @@
+@import "../../assets/design/variables.scss";
+
 .LyricsComponent {
   .LyricsToolbar {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: $absolute-position-fixed-margin;
+    right: $absolute-position-fixed-margin;
     z-index: 10;
   
     .lyrics_toolbar_options {
-      background-color: #1A1E26;
+      background-color: $background-color-dark-gray;
       padding: 5px 10px;
-      border-radius: 10px;
+      border-radius: $labels-border-radius;
       font-size: calc(5px + 1vmin);
   
+      &:hover {
+        background-color: $color-black;
+      }
+  
       &.--show-lyrics-button {
-        color: white;
+        color: $color-white;
         font-weight: bold;
         cursor: pointer;
       }
@@ -32,6 +38,7 @@
 
     &__container {
       display: flex;
+      flex-direction: column;
       position: relative;
       box-sizing: border-box;
       align-items: center;
@@ -47,22 +54,30 @@
       right: 0;
       bottom: 0;
       left: 0;
-      background: #1a1e26;
+      background: $background-color-dark-gray;
     }
   
     &__content {
       position: relative;
       z-index: 10;
-      font-size: calc(10px + 1vmin);
-      white-space: pre-wrap;
-      color: white;
-      width: calc(100% - 40px);
-      max-width: 400px;
-      height: calc(100vh - 80px);
+      font-size: $font-size-smaller;
       padding: 20px;
+      white-space: pre-wrap;
+      color: $color-white;
+      width: calc(100% - 40px);
+      height: calc(100vh - 80px);
+      max-width: 600px;
       max-height: 700px;
       overflow-y: scroll;
       overflow-x: hidden;
+
+      &--bottom-label {
+        margin-top: 30px;
+        font-size: $font-size-label;
+        z-index: 2;
+        color: $color-gray;
+      }
     }
+
   }
 }

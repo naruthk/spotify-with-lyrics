@@ -1,3 +1,5 @@
+@import "../../assets/design/variables.scss";
+
 .LoginComponent {
   background-image: url("../../assets/images/unsplash_yannis-papanastasopoulos-yWF2LLan-_o_1920.jpg");
   background-size: cover;      
@@ -6,11 +8,11 @@
   height: 100vh;
   justify-content: space-evenly;
 
-  .auth_wrapper {
+  .auth {
     h1 {
-      color: white;
+      color: $color-white;
       font-weight: bold;
-      font-size: calc(15px + 10vmin);
+      font-size: $font-size-xl;
       margin-bottom: 10px;
     }
   }
@@ -22,52 +24,52 @@
 
     &.--big {
       padding: 10px 20px;
-      font-size: calc(10px + 1vmin);
+      font-size: $font-size-medium;
     }
 
     &.--bg-dark {
       background-color: #191414;
       color: #1DB954;
       font-weight: bold;
-
       &:hover {
         background-color: #1DB954;
-        color: white;
+        color: $color-white;
       }
     }
   }
 
-  .bottom_area {
+  .photo_credits {
     position: absolute;
-    bottom: 15px;
-    right: 15px;
-    background-color: #1A1E26;
-    border-radius: 10px;
+    bottom: $absolute-position-fixed-margin;
+    right: $absolute-position-fixed-margin;
+    background-color: $background-color-dark-gray;
+    border-radius: $labels-border-radius;
     padding: 5px 10px;
     text-align: right;
 
     .artwork_credit {
-      font-size: calc(5px + 1vmin);
+      font-size: $font-size-label;
   
       &.--artist_name {
-        color: white;
+        color: $color-white;
+
         a, a:visited {
           margin-left: 5px;
-          color: white;
+          color: $color-white;
           font-weight: bold;
           text-decoration: none;
         }
+
         a:hover {
           text-decoration: underline;
         }
       }
   
       &.--service {
-        color: gray;
+        color: $color-gray;
         margin-left: 10px;
         font-size: smaller;
       }
     }
   }
-
 }

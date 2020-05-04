@@ -3,7 +3,7 @@ import { lyricCrawler } from "../../apis/lyrics";
 
 import "./Lyrics.scss";
 
-function Lyrics({ isPlaying, artists, song }) {
+function Lyrics({ isPlaying, activeSongInfo }) {
   const [lyrics, setLyrics] = useState([]);
   const [isOpeningLyricsModal, setIsOpeningLyricsModal] = useState(false);
 
@@ -13,8 +13,9 @@ function Lyrics({ isPlaying, artists, song }) {
   }
 
   useEffect(() => {
+    const { artists, song } = activeSongInfo;
     getLyrics({ artists, song });
-  }, []);
+  }, [activeSongInfo]);
 
   const renderLyricsToolbar = () => (
     lyrics.length !== 0 ? (
@@ -37,6 +38,7 @@ function Lyrics({ isPlaying, artists, song }) {
         <div className="LyricsModal__dim-layer" onClick={() => setIsOpeningLyricsModal(false)} />
         <div className="LyricsModal__content">
           {lyrics}
+          <div className="LyricsModal__content--bottom-label">Lyrics from Genius</div>
         </div>
       </div>
     </section>

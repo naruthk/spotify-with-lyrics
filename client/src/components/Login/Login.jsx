@@ -8,7 +8,7 @@ function Login() {
 
   return (
     <section className="LoginComponent">
-      <section className="auth_wrapper">
+      <section className="auth">
         <h1>Spotify Lyric</h1>
         <button
           id="login_button"
@@ -18,7 +18,7 @@ function Login() {
           Log in with Spotify
         </button>
       </section>
-      <section className="bottom_area">
+      <section className="photo_credits">
         <div className="artwork_credit">
           <span className="artwork_credit --artist_name">
             Photo by 

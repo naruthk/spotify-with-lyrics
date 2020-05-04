@@ -50,9 +50,9 @@ export default async function getCurrentPlayback({ accessToken, market }) {
       images: album_images_list
     },
     artists: artists_names_list,
-    song_id: id,
-    song_name: name,
+    songId: id,
+    songName: name,
     duration: duration_ms,
-    progress: progress_ms
+    timeElapsed: progress_ms
   }
 }

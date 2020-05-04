@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import Login from "./components/Login/Login";
-import Player from "./components/Player/Player";
+import Home from "./components/Home/Home";
 import Profile from "./components/Profile/Profile";
 
 import { AuthContext } from "./context/AuthContext";
@@ -14,7 +14,7 @@ function App(props) {
     <div className="App">
       {!isLoggedIn ? <Login /> : (
         <>
-          <Player />
+          <Home />
           <Profile />
         </>
       )}

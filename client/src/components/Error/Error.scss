@@ -1,75 +1,5 @@
-.LoginComponent {
-  background-image: url("../../assets/images/unsplash_yannis-papanastasopoulos-yWF2LLan-_o_1920.jpg");
-  background-size: cover;      
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: space-evenly;
+@import "../../assets/design/variables.scss";
 
-  .auth_wrapper {
-    h1 {
-      color: white;
-      font-weight: bold;
-      font-size: calc(15px + 10vmin);
-      margin-bottom: 10px;
-    }
-  }
-
-  .button {
-    outline: none;
-    border: 0;
-    cursor: pointer;
-
-    &.--big {
-      padding: 10px 20px;
-      font-size: calc(10px + 1vmin);
-    }
-
-    &.--bg-dark {
-      background-color: #191414;
-      color: #1DB954;
-      font-weight: bold;
-      &:hover {
-        background-color: #1DB954;
-        color: white;
-      }
-    }
-  }
-
-  .bottom_area {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    background-color: #1A1E26;
-    border-radius: 10px;
-    padding: 5px 10px;
-    text-align: right;
-
-    .artwork_credit {
-      font-size: calc(5px + 1vmin);
-  
-      &.--artist_name {
-        color: white;
-        a, a:visited {
-          margin-left: 5px;
-          color: white;
-          font-weight: bold;
-          text-decoration: none;
-        }
-        a:hover {
-          text-decoration: underline;
-        }
-      }
-  
-      &.--service {
-        color: gray;
-        margin-left: 10px;
-        font-size: smaller;
-      }
-    }
-  }
-
-}
 .ErrorComponent {
   display: flex;
   flex-direction: column;
@@ -78,15 +8,15 @@
 
   .MessageContainer {
     h1 {
-      color: white;
-      font-size: calc(15px + 8vmin);
+      color: $color-white;
       margin-bottom: 20px;
-      -webkit-text-shadow: 2px 2px 21px rgba(0, 38, 38, 0.43);
-      -moz-text-shadow: 2px 2px 21px rgba(0, 38, 38, 0.43);
-      text-shadow: 2px 2px 21px rgba(0, 38, 38, 0.43);
+      font-size: $font-size-l;
+      text-shadow: $text-shadows;
+      -webkit-text-shadow: $text-shadows;
+      -moz-text-shadow: $text-shadows;
     }
     p {
-      font-size: calc(15px + 1vmin);
+      font-size: $font-size-medium;
     }
   }
 }

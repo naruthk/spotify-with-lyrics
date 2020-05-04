@@ -8,8 +8,12 @@ function Lyrics({ isPlaying, activeSongInfo }) {
   const [isOpeningLyricsModal, setIsOpeningLyricsModal] = useState(false);
 
   const getLyrics = async ({ artists, song}) => {
-    const response = await lyricCrawler({ artists, song: song.name });
-    setLyrics(response);
+    try {
+      const response = await lyricCrawler({ artists, song: song.name });
+      setLyrics(response);
+    } catch (err) {
+      // TO-DO: Handle server crash
+    };
   }
 
   useEffect(() => {

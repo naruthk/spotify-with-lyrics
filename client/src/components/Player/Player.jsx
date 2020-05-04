@@ -5,9 +5,10 @@ import "./Player.scss";
 
 function Player({ isPlaying, activeSongInfo, updateSong }) {
   const { device, song, album, artists} = activeSongInfo;
-
-  const [timeElapsed, setTimeElapsed] = useState(activeSongInfo.timeElapsed);
   
+  const [timeElapsed, setTimeElapsed] = useState(activeSongInfo.timeElapsed);
+  const [formattedElapsedTime, setFormattedElapsedTime] = useState("");
+
   useEffect(() => {
     if (!isPlaying) return;
     
@@ -25,6 +26,10 @@ function Player({ isPlaying, activeSongInfo, updateSong }) {
     return () => clearInterval(interval);
   }, [timeElapsed, isPlaying, song.duration, updateSong]);
 
+  useEffect(() => {
+    setFormattedElapsedTime(millisToMinutesAndSeconds(timeElapsed));
+  }, [timeElapsed]);
+
   return (
     <div className="PlayerComponent">
       <section className="player_content">
@@ -33,7 +38,6 @@ function Player({ isPlaying, activeSongInfo, updateSong }) {
         <section className="device_information">
           <p className="device_information --top-label">Currently playing on</p>
           <p className="device_information --bottom-label">{device.name}</p>
-          <p>Removed this => {timeElapsed}</p>
         </section>
 
         {/* Album Artwork */}
@@ -64,7 +68,7 @@ function Player({ isPlaying, activeSongInfo, updateSong }) {
               style={{ width: `${100 - ((timeElapsed / song.duration) * 100)}%` }}></span>
           </div>
           <div className="time_indicator">
-            <span className="time_indicator --current">{millisToMinutesAndSeconds(timeElapsed)}</span>
+            <span className="time_indicator --current">{formattedElapsedTime}</span>
             <span className="time_indicator --remaining">{millisToMinutesAndSeconds(song.duration)}</span>
           </div>
         </section>

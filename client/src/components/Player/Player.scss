@@ -18,10 +18,17 @@
     }
   }
   .album_image {
-    max-width: 400px;
     -webkit-box-shadow: 3px -3px 44px 0px rgba(38,38,38,1);
     -moz-box-shadow: 3px -3px 44px 0px rgba(38,38,38,1);
     box-shadow: 3px -3px 44px 0px rgba(38,38,38,1);
+    
+    max-width: 350px;
+
+    @media only screen and (max-width: 600px) {
+      width: 100%;
+      max-width: 250px;
+    }
+
   }
   .song_information {
     &.--name {

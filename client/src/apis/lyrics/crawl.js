@@ -15,6 +15,22 @@ export default async function lyricCrawler({ artists, song }) {
   const response = await axios
     .get(`http://localhost:4000/crawl-genius?artists=${artistsField}&song=${songField}`)
     .catch(err => {
+      if (err.response && err.response.status === 403) {
+        log({
+          message: "Unable to crawl for lyrics: You are blocked from accessing Genius to prevent potential attacks.",
+          level: LOG_LEVELS.INFO
+        });
+        return;
+      }
+      if (err.response && err.response.status === 404) {
+        log({
+          message: "Unable to crawl for lyrics: Page not found.",
+          err,
+          level: LOG_LEVELS.INFO
+        });
+        return;
+      }
+
       log({
         message: "Unable to crawl for lyrics: ",
         err,
